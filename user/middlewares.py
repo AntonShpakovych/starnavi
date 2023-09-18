@@ -17,6 +17,6 @@ class UserActivityMiddleware:
         ):
             user = request.user
             user.last_request = timezone.now()
-            user.save()
+            user.save(update_fields=["last_request"])
 
         return response
