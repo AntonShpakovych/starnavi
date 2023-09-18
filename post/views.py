@@ -11,6 +11,7 @@ from post.serializers import (
     PostRetrieveSerializer,
     PostLikeSerializer
 )
+from post.services.post_like_analytics_service import PostLikeAnalyticsService
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -62,3 +63,32 @@ class PostLikeView(views.APIView):
         )
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class PostLikeAnalyticsView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        date_from = self.request.query_params.get("date_from")
+        date_to = self.request.query_params.get("date_to")
+
+        if not date_from or not date_to:
+            return Response(
+                {"error": "'date_from' and 'date_to' parameters are required"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            analytics_service = PostLikeAnalyticsService(
+                date_from=date_from,
+                date_to=date_to
+            )
+            return Response(
+                analytics_service.produce_analytics(),
+                status=status.HTTP_200_OK
+            )
+        except ValueError:
+            return Response(
+                {"error": "Invalid date format .ex(YYYY-MM-DD)"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
