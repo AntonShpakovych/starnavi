@@ -1,15 +1,15 @@
 from django.urls import path
 
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
+    TokenObtainPairView
 )
 
 from user.views import (
     UserCreateView,
     ManageUserView,
-    UserActivityView
+    UserActivityView,
 )
 
 

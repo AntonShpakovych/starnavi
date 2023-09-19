@@ -1,11 +1,13 @@
-from django.db.models import Count
+from typing import List
+
+from django.db.models import Count, QuerySet
 from django.utils import timezone
 
 from post.models import PostLike
 
 
 class PostLikeAnalyticsService:
-    def __init__(self, date_from, date_to):
+    def __init__(self, date_from: str, date_to: str):
         self.date_from = date_from
         self.date_to = date_to
 
@@ -31,7 +33,7 @@ class PostLikeAnalyticsService:
         return self.__serializer_analytics(analytics=analytics)
 
     @staticmethod
-    def __serializer_analytics(analytics):
+    def __serializer_analytics(analytics: QuerySet) -> List:
         return [
             {
                 "date": analytic_item["created_at__date"],

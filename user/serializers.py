@@ -5,7 +5,7 @@ from rest_framework import serializers
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ["email", "password", "first_name", "last_name"]
+        fields = ["id", "email", "password", "first_name", "last_name"]
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
@@ -15,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
 class UserManageSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ["email", "password", "first_name", "last_name"]
+        fields = ["id", "email", "password", "first_name", "last_name"]
         extra_kwargs = {"password": {"write_only": True, "required": False}}
 
     def update(self, instance, validated_data):
@@ -30,4 +30,4 @@ class UserManageSerializer(serializers.ModelSerializer):
 class UserActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ["last_login", "last_request"]
+        fields = ["id", "last_login", "last_request"]

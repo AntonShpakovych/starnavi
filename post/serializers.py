@@ -6,7 +6,7 @@ from post.models import Post, PostLike
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ["title", "description"]
+        fields = ["id", "title", "description"]
 
 
 class PostListSerializer(serializers.ModelSerializer):
@@ -24,15 +24,15 @@ class PostRetrieveSerializer(serializers.ModelSerializer):
         fields = ["id", "user", "title", "description", "likes"]
 
     @staticmethod
-    def get_user(obj):
+    def get_user(obj) -> str:
         return f"{obj.user.first_name} {obj.user.last_name}"
 
     @staticmethod
-    def get_likes(obj):
+    def get_likes(obj) -> int:
         return len(obj.likes.all())
 
 
 class PostLikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostLike
-        fields = ["post", "user"]
+        fields = ["id", "post", "user"]
