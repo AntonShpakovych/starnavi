@@ -1,4 +1,4 @@
-schema = {
+SCHEMA = {
     "type": "object",
     "properties": {
         "number_of_users": {

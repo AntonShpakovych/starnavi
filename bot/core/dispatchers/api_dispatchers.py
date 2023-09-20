@@ -4,10 +4,13 @@ from typing import List, Dict
 import requests
 from faker import Faker
 
-from bot.entities import User, Post, Like
+from bot.core.entities.entities import User, Post, Like
 
 
 class UserAPIDispatcher:
+    """UserAPIDispatcher handles the user API logic,
+    including user sign-up and login.
+    """
     SIGN_UP_USER_URL: str = "http://localhost:8000/api/v1/user/"
     LOGIN_USER_URL: str = "http://localhost:8000/api/v1/user/token/"
 
@@ -16,12 +19,17 @@ class UserAPIDispatcher:
         self.users = []
 
     def provide_users(self) -> List[User]:
+        """Provides a list of User objects by signing up and logging"""
         self._sign_up_users()
         self._login_users()
 
         return self.users
 
     def _sign_up_users(self) -> None:
+        """Sign up the specified number of users by
+        making POST requests to the sign-up API endpoint.
+        Populates the 'users' list with User objects.
+        """
         for _ in range(self.number_of_users):
             data = self._generate_random_user_data()
             response=requests.post(
@@ -32,6 +40,10 @@ class UserAPIDispatcher:
             self.users.append(user)
 
     def _login_users(self) -> None:
+        """Log in each user in the 'users' list by
+        making POST requests to the login API endpoint.
+        Updates the 'access' attribute of each User object.
+        """
         for user in self.users:
             response = requests.post(
                 url=self.LOGIN_USER_URL,
@@ -40,7 +52,11 @@ class UserAPIDispatcher:
             user.access = response.get("access")
 
     @staticmethod
-    def _generate_random_user_data():
+    def _generate_random_user_data() -> Dict[str, str]:
+        """Generates random user data
+        (email, first name, last name, and password)
+        using the Faker library.
+        """
         faker = Faker()
         return {
             "email": faker.email(),
@@ -51,6 +67,7 @@ class UserAPIDispatcher:
 
 
 class PostAPIDispatcher:
+    """PostAPIDispatcher handles the creation of posts via API"""
     POST_CREATE_URL: str = "http://localhost:8000/api/v1/post/"
 
     def __init__(
@@ -61,6 +78,7 @@ class PostAPIDispatcher:
         self.posts = []
 
     def provide_posts(self, users: List[User]):
+        """Creates posts for a list of users and return these posts."""
         self._create_posts(users=users)
 
         return self.posts
@@ -69,6 +87,7 @@ class PostAPIDispatcher:
             self,
             users: List[User]
     ) -> None:
+        """Creates random quantity of posts for a list of users"""
         for user in users:
             num_posts = random.randint(1, self.max_posts_per_user)
 
@@ -85,6 +104,9 @@ class PostAPIDispatcher:
 
     @staticmethod
     def _generate_random_post_data() -> Dict[str, str]:
+        """Generates random post data
+        (title and description) using the Faker library.
+        """
         faker = Faker()
         return {
             "title": faker.name(),
@@ -93,6 +115,7 @@ class PostAPIDispatcher:
 
 
 class LikeAPIDispatcher:
+    """LikeAPIDispatcher handles the creation of likes for posts via API."""
     URL_LIKE_BASE: str = "http://localhost:8000/api/v1/post"
 
     def __init__(self, max_likes_per_user: int) -> None:
@@ -103,6 +126,7 @@ class LikeAPIDispatcher:
             users: List[User],
             posts: List[Post]
     ) -> List[Like]:
+        """Provides a list of Like objects by creating random likes for posts and users."""
         likes = []
 
         for user in users:

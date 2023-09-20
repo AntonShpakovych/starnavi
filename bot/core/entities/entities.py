@@ -21,9 +21,11 @@ class User:
         self.posts = posts or []
 
     def login_credentials(self) -> Dict[str, str]:
+        """Provide data for generate access token"""
         return {"email": self.email, "password": self.password}
 
     def jwt_authentication_headers(self) -> Dict[str, str]:
+        """Provide header for jwt-authentication"""
         return {"Authorization": f"Bearer {self.access}"}
 
 
@@ -59,6 +61,7 @@ class Like:
             user: User,
             post: Post
     ) -> bool:
+        """Check if user likes the post"""
         for like in likes:
             if like.user == user.id and like.post == post.id:
                 return True
@@ -71,6 +74,7 @@ class Like:
             user: User,
             post: Post
     ) -> None:
+        """Delete a like if a user likes a post he has already liked"""
         for like in likes:
             if like.user == user.id and like.post == post.id:
                 del like

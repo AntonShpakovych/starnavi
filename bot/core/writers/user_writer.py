@@ -1,7 +1,8 @@
 import json
 from typing import List
 
-from bot.entities import User
+from bot.core.entities.entities import User
+from bot.core.writers.utils import handle_folder_and_file
 
 
 class UserEncoder(json.JSONEncoder):
@@ -19,6 +20,13 @@ class UserEncoder(json.JSONEncoder):
         return super().default(obj)
 
 
-def write_user_result(users: List[User]) -> None:
-    with open("user_result.json", "w+") as user_file:
+def write_user_result(
+        users: List[User],
+        folder: str = "result",
+        filename: str = "user_result.json"
+) -> None:
+    """Write result for user"""
+    result_path = handle_folder_and_file(folder, filename)
+
+    with open(result_path, "a") as user_file:
         json.dump(users, user_file, cls=UserEncoder, indent=4)
