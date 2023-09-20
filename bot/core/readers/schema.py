@@ -11,6 +11,10 @@ SCHEMA = {
             "type": "integer"
         }
     },
-    "required": ["number_of_users", "max_posts_per_user", "max_likes_per_user"],
+    "required": [
+        "number_of_users",
+        "max_posts_per_user",
+        "max_likes_per_user"
+    ],
     "additionalProperties": False
 }

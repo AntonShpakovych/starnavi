@@ -18,7 +18,13 @@ def wait_for_db():
     conn = None
     while conn is None:
         try:
-            conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host, port=port)
+            conn = psycopg2.connect(
+                dbname=dbname,
+                user=user,
+                password=password,
+                host=host,
+                port=port
+            )
         except OperationalError:
             print("Database unavailable, waiting 1 second...")
             time.sleep(1)

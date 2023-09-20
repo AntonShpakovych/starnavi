@@ -32,7 +32,7 @@ class UserAPIDispatcher:
         """
         for _ in range(self.number_of_users):
             data = self._generate_random_user_data()
-            response=requests.post(
+            response = requests.post(
                 url=self.SIGN_UP_USER_URL,
                 data=data
             ).json()
@@ -126,7 +126,9 @@ class LikeAPIDispatcher:
             users: List[User],
             posts: List[Post]
     ) -> List[Like]:
-        """Provides a list of Like objects by creating random likes for posts and users."""
+        """Provides a list of Like objects
+        by creating random likes for posts and users.
+        """
         likes = []
 
         for user in users:

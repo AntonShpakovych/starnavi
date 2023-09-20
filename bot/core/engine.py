@@ -51,19 +51,26 @@ class StarNaviBot:
         write_like_result(likes=likes)
 
     def _initialize_user_dispatcher(self) -> UserAPIDispatcher:
-        """Initializes a UserAPIDispatcher instance based on the bot's settings."""
+        """Initializes a UserAPIDispatcher instance
+        based on the bot's settings.
+        """
         return UserAPIDispatcher(
             number_of_users=self.settings["number_of_users"]
         )
 
     def _initialize_post_dispatcher(self) -> PostAPIDispatcher:
-        """Initializes a PostAPIDispatcher instance based on the bot's settings."""
+        """
+        Initializes a PostAPIDispatcher
+        instance based on the bot's settings.
+        """
         return PostAPIDispatcher(
             max_posts_per_user=self.settings["max_posts_per_user"],
         )
 
     def _initialize_like_dispatcher(self) -> LikeAPIDispatcher:
-        """Initializes a LikeAPIDispatcher instance based on the bot's settings."""
+        """Initializes a LikeAPIDispatcher
+        instance based on the bot's settings.
+        """
         return LikeAPIDispatcher(
             max_likes_per_user=self.settings["max_likes_per_user"]
         )
