@@ -18,6 +18,12 @@ docker compose up --build
 ```shell
 INFO: Before starting the bot, the api must also be running
 #
+python -m venv venv
+#
+venv\Scripts\activate
+#
+pip install -r requirements_bot.txt
+#
 cd bot
 #
 python main.py (after starting the bot, a folder will be created in which the results will be)
@@ -31,3 +37,7 @@ python main.py (after starting the bot, a folder will be created in which the re
       last time and when he mades a last request to the service.
     - containerization api and db
     - Bot: A bot that demonstrates the operation of the API in the form of file generation
+
+
+### Presence endpoints:
+    api/v1/doc/swagger/
