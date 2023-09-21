@@ -2,7 +2,6 @@
 
 
 
-
 ## To run the api should be executed
 ```shell
 #
@@ -13,6 +12,9 @@ cd starnavi
 create .env file with variables example provided in .env.sample
 #
 docker compose up --build
+#
+127.0.0.1/api/v1/doc/swagger/ - all endpoints we have
+#
 ```
 ## To test the api you should run a bot
 ```shell
